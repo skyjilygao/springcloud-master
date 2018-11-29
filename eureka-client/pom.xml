@@ -36,6 +36,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.powerwin.adorado</groupId>
+			<artifactId>adorado-util</artifactId>
+			<version>1.1.0</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

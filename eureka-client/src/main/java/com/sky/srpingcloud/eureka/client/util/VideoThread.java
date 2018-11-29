@@ -1,12 +1,23 @@
 package com.sky.srpingcloud.eureka.client.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class MyThread extends Thread {
+/**
+ * 使用多线程输出，防止阻塞
+ * @author skyjilygao
+ * @since 20181128
+ * @version 1.0
+ */
+//@Slf4j
+public class VideoThread extends Thread {
+    Logger log = LoggerFactory.getLogger(VideoThread.class);
     private Process p;
-    public MyThread(Process p){
+    public VideoThread(Process p){
         this.p = p;
     }
 
@@ -14,10 +25,9 @@ public class MyThread extends Thread {
     public void run(){
         BufferedReader err = new BufferedReader(new InputStreamReader(p.getErrorStream()));
         String line = null;
-
         try {
             while ((line = err.readLine()) != null) {
-                System.out.println("err: " + line);
+                log.info(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -27,11 +37,10 @@ public class MyThread extends Thread {
                 try {
                     p.waitFor();
                     p.destroy();
+                    log.info("video convert completed...");
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
